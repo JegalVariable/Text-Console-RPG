@@ -5,13 +5,13 @@
 
 using namespace std;
 
-Slime::Slime(int hp, int attack)
-	: name("Slime"), dropItem("Slime Jelly"), hp(hp), attack(attack), id(1) { }
-
-void Slime::TakeDamage(int damage)
+void Monster::TakeDamage(int damage)
 {
-
+	hp -= damage;
 }
+
+Slime::Slime(int hp, int attack)
+	: Monster("Slime", "Slime Jelly", hp, attack, 1) { }
 
 void Slime::AttackMessage()
 {
@@ -19,12 +19,7 @@ void Slime::AttackMessage()
 }
 
 Goblin::Goblin(int hp, int attack)
-: name("Goblin"),dropItem("Goblin Leather"), hp(hp), attack(attack), id(2) {}
-
-void Goblin::TakeDamage(int damage)
-{
-
-}
+	: Monster("Goblin", "Goblin Leather", hp, attack, 2) { }
 
 void Goblin::AttackMessage()
 {

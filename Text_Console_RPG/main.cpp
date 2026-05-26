@@ -11,22 +11,26 @@ using namespace std;
 int main(void)
 {
 	Character* player = nullptr;
+
 	string name = "";
+
 	char mainMenuChoice = 0;
-	
+
 	bool bMainMenu = true;
+	bool bGameRunning = true;
 
 	cout << "이름을 입력하시오: ";
 	getline(cin, name);
 
-	player = new Character(name);
+	player = new Character(name); // 캐릭터 생성
+	Battle(player);
 
 	while (bMainMenu)
 	{
-		cout << "1. 스탯 " << endl;
+		cout << "1. 스탯" << endl;
 		cout << "2. 전투" << endl;
-		cout << "3. " << endl;
-		cout << "4. " << endl;
+		cout << "3. 상점" << endl;
+		cout << "4. 인벤" << endl;
 		cout << "0. 종료" << endl;
 		cin >> mainMenuChoice;
 
@@ -34,15 +38,17 @@ int main(void)
 		{
 		case '1':
 			cout << "스탯" << endl;
+			player->DisplayStatus();
 			break;
 		case '2':
 			cout << "전투" << endl;
+			Battle(player);
 			break;
 		case '3':
-			cout << "3" << endl;
+			cout << "상점" << endl;
 			break;
 		case '4':
-			cout << "4" << endl;
+			cout << "인벤" << endl;
 			break;
 		case '0':
 			bMainMenu = false;
@@ -53,6 +59,14 @@ int main(void)
 			break;
 		}
 	}
+
+	//while (bGameRunning)
+	{
+
+	}
+	
+
+	delete player;
 	return 0;
 }
 
