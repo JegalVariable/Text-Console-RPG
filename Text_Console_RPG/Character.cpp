@@ -51,7 +51,7 @@ void Character::LevelUp()
 
 void Character::UseItem(int index)
 {
-	if (index < 0 || index >= inventory.size())
+	if (index < 0 || index >= static_cast<int>(inventory.size()))
 	{
 		return;
 	}
@@ -63,6 +63,7 @@ void Character::UseItem(int index)
 		if (inventory[index]->GetCount() <= 0)
 		{
 			delete inventory[index];
+			inventory[index] = nullptr;
 
 			inventory.erase(inventory.begin() + index);
 		}
@@ -106,31 +107,41 @@ bool Character::RandomUse() // 50% 확률로 아이템 사용
 
 	hpPotionIndex = GetItemIndex("HP Potion");
 	attackBoostIndex = GetItemIndex("Attack Boost");
+
+	bool hasHPPotion = hpPotionIndex != -1;
+	bool hasAttackBoost = attackBoostIndex != -1;
 	
-	if (inventory[hpPotionIndex]->GetCount() == 0 && inventory[attackBoostIndex]->GetCount() == 0) // 둘 다 없음
+	// 둘 다 없음
+	if (!hasHPPotion && !hasAttackBoost)
 	{
 		cout << "아이템이 다 떨어졌습니다." << endl;
+		return false;
 	}
-	else if (inventory[attackBoostIndex]->GetCount() == 0) // 체력포션만 있음
+
+	// 체력포션만 있음
+	if (hasHPPotion && !hasAttackBoost)
 	{
 		LogUseHPPotion(hpPotionIndex);
+		return false;
 	}
-	else if (inventory[hpPotionIndex]->GetCount() == 0) // 공격부스터만 있음
+
+	// 공격부스터만 있음
+	if (!hasHPPotion && hasAttackBoost)
+	{
+		LogUseAttackBoost(attackBoostIndex);
+		return true;
+	}
+
+	// 둘 다 있음
+	if (random == 0)
+	{
+		LogUseHPPotion(hpPotionIndex);
+		return false;
+	}
+	else
 	{
 		LogUseAttackBoost(attackBoostIndex);
 		bCheck = true;
-	}
-	else // 둘다 있는경우
-	{
-		if (random == 0)
-		{
-			LogUseHPPotion(hpPotionIndex);
-		}
-		else if (random == 1)
-		{
-			LogUseAttackBoost(attackBoostIndex);
-			bCheck = true;
-		}
 	}
 	return bCheck;
 }
@@ -139,7 +150,7 @@ int Character::GetItemIndex(const string& itemName) const
 {
 	int index = -1;
 
-	for (int i = 0; i < inventory.size(); ++i)
+	for (int i = 0; i < static_cast<int>(inventory.size()); ++i)
 	{
 		if (inventory[i]->GetName() == itemName)
 		{

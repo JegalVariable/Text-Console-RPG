@@ -30,6 +30,7 @@ Monster* GameManager::GenerateMonster(int level)
 		break;
 	case 2:
 		monster = new Orc(level * monsterHP, level * monsterAttack);
+		break;
 	default:
 		break;
 	}
@@ -289,11 +290,6 @@ void GameManager::GameRunning()
 			}
 		}
 	}
-}
-
-void GameManager::BossRunning()
-{
-	
 }
 
 void GameManager::AddRandomItem()

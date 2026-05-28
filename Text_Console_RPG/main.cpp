@@ -2,6 +2,7 @@
 #include <string>
 
 #include "GameManager.h"
+#include "GameLogManager.h"
 #include "Item.h"
 #include "Monster.h"
 #include "Character.h"
@@ -19,6 +20,6 @@ int main(void)
 	gameManager.GameRunning();
 
 	delete Character::GetInstance("");
-
+	PressAnyKey();
 	return 0;
-}		
+}
