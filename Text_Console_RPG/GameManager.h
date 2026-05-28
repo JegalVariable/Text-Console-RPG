@@ -17,7 +17,6 @@ public:
 	void PrintInventory(Character* player);
 	void PrintRandomItem(Character* player);
 	void GameRunning();
-	void BossRunning();
 	void AddRandomItem();
 
 	bool GetBGameOver() const { return bGameOver; }

@@ -71,7 +71,6 @@ void PrintRandomItemMenu()
 
 void PrintBattleMenu(Monster* monster)
 {
-	ClearScreen();
 	monster->PrintMonster();
 	cout << endl;
 	Character::GetInstance("")->DisplayStatus();
@@ -161,9 +160,11 @@ void LogAddItem(Monster* monster)
 {
 	Item* dropItem = monster->DropItem();
 
-	Character::GetInstance("")->AddItem(dropItem); // 몬스터 드랍템은 100% 획득
+	string itemName = dropItem->GetName();
 
-	cout << dropItem->GetName() << " 획득!" << endl;
+	Character::GetInstance("")->AddItem(dropItem); // 몬스터 드랍템은 100% 획득
+	
+	cout << itemName << " 획득!" << endl;
 	cout << "아이템은 모두 가방에 저장되었습니다." << endl;
 	cout << endl;
 }
