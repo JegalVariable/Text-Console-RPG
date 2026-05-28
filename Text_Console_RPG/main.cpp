@@ -15,7 +15,7 @@ int main(void)
 
 	GameManager gameManager;
 
-	gameManager.CreateCharacter(); // Ä³¸¯ÅÍ »ı¼º
+	gameManager.CreateCharacter(); // Ã„Â³Â¸Â¯Ã…Ã Â»Ã½Â¼Âº
 
 	gameManager.GameRunning();
 
