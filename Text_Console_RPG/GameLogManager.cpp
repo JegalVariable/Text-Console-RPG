@@ -174,4 +174,10 @@ void LogLevelUp()
 	cout << "레벨 UP! Lv." << Character::GetInstance("")->GetLevel();
 	Character::GetInstance("")->LevelUp();
 	cout << " -> Lv." << Character::GetInstance("")->GetLevel() << endl;
+	if (Character::GetInstance("")->GetLevel() == 10)
+	{
+		cout << endl;
+		cout << "이제 일반 몬스터는 상대도 안 된다!" << endl;
+		cout << endl;
+	}
 }
