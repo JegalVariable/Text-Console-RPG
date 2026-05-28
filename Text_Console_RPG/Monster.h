@@ -1,27 +1,29 @@
 #pragma once
 #include <string>
 
+class Item;
+
 class Monster
 {
 protected:
 	std::string name = "";
-	std::string dropItem = "";
+
 	int hp = 0;
 	int attack = 0;
-	int id = 0;
 
 public:
-	Monster(std::string name, std::string dropItem, int hp, int attack, int id)
-		: name(name), dropItem(dropItem), hp(hp), attack(attack), id(id) { }
+	Monster(const std::string& name, int hp, int attack);
+	virtual ~Monster() = default;
 
-	std::string GetName() const { return name; }
+	const std::string& GetName() const { return name; }
 	int GetHP() const { return hp; }
 	int GetAttack() const { return attack; }
 
-	void SetHP(int hp) { this->hp; }
+	void SetHP(int hp) { this->hp = hp; }
 
 	void TakeDamage(int damage);
-	virtual void AttackMessage() {}
+	virtual Item* DropItem() = 0;
+	virtual void PrintMonster() = 0;
 };
 
 class Slime : public Monster
@@ -29,7 +31,8 @@ class Slime : public Monster
 public:
 	Slime(int hp, int attack);
 
-	void AttackMessage();
+	Item* DropItem() override;
+	void PrintMonster() override;
 };
 
 class Goblin : public Monster
@@ -37,5 +40,24 @@ class Goblin : public Monster
 public:
 	Goblin(int hp, int attack);
 
-	void AttackMessage();
+	Item* DropItem() override;
+	void PrintMonster() override;
+};
+
+class Orc : public Monster
+{
+public:
+	Orc(int hp, int attack);
+
+	Item* DropItem() override;
+	void PrintMonster() override;
+};
+
+class Dragon : public Monster
+{
+public:
+	Dragon(int hp, int attack);
+
+	Item* DropItem() override;
+	void PrintMonster() override;
 };

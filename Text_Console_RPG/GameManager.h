@@ -1,11 +1,26 @@
 #pragma once
-#include <iostream>
 
 class Monster;
 class Character;
 
-Monster* GenerateMonster(int level);
+class GameManager
+{
+private:
+	bool bGameOver = true;
 
-void Battle(Character* player);
+public:
+	Monster* GenerateMonster(int level);
+	Monster* GenerateDragon(int level);
 
-void PrintInventory(Character* player);
+	void CreateCharacter();
+	void Battle(Character* player);
+	void PrintInventory(Character* player);
+	void PrintRandomItem(Character* player);
+	void GameRunning();
+	void BossRunning();
+	void AddRandomItem();
+
+	bool GetBGameOver() const { return bGameOver; }
+	void SetBGameOver(bool bGameOver) { this->bGameOver = bGameOver; }
+};
+

@@ -2,11 +2,16 @@
 #include <string>
 #include <vector>
 
-struct Item;
+class Item;
 
 class Character
 {
 private:
+	Character(std::string name)
+		: name(name), level(1), hp(200), maxHP(200), attack(30) { }
+
+	static Character* instance;
+
 	std::string name = "";
 
 	int level = 0;
@@ -23,12 +28,16 @@ private:
 	std::vector<Item*> inventory;
 
 public:
-	Character(std::string name)
-	: name(name), level(1), hp(200), maxHP(200), attack(30) { }
+	~Character();
+
+	static Character* GetInstance(std::string name);
 
 	void DisplayStatus();
 	void LevelUp();
 	void UseItem(int index);
+	void AddItem(Item* item);
+	bool RandomUse();
+	void AddExp() { this->exp += DROP_EXP; }
 	
 	int GetLevel() const { return level; }
 	int GetMaxLevel() const { return MAX_LEVEL; }
@@ -38,7 +47,9 @@ public:
 	int GetExp() const { return exp; }
 	int GetMaxExp() const { return MAX_EXP; }
 	int GetGold() const { return gold; }
-	
+	std::vector<Item*>& GetInventory() { return inventory; }
+	int GetItemIndex(const std::string& itemName) const;
+	const std::string& GetName() const { return name; }
 
 	void SetLevel(int level) { this->level = level; }
 	void SetHP(int hp) { this->hp = hp; }
@@ -46,6 +57,4 @@ public:
 	void SetAttack(int attack) { this->attack = attack; }
 	void SetExp(int exp) { this->exp = exp; }
 	void SetGold(int gold) { this->gold = gold; }
-
-	void AddExp() { this->exp += DROP_EXP; }
 };

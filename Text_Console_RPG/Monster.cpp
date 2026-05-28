@@ -1,9 +1,13 @@
 #include <iostream>
-#include <string>
 
 #include "Monster.h"
+#include "Item.h"
+#include "GameLogManager.h"
 
 using namespace std;
+
+Monster::Monster(const std::string& name, int hp, int attack)
+	: name(name), hp(hp), attack(attack) { }
 
 void Monster::TakeDamage(int damage)
 {
@@ -11,17 +15,111 @@ void Monster::TakeDamage(int damage)
 }
 
 Slime::Slime(int hp, int attack)
-	: Monster("Slime", "Slime Jelly", hp, attack, 1) { }
+	: Monster("Slime", hp, attack) { }
 
-void Slime::AttackMessage()
+Item* Slime::DropItem()
 {
-	cout << "슬라임의 몸통박치기!" << endl;
+	return new SlimeJelly();
+}
+
+void Slime::PrintMonster()
+{
+    ClearScreen();
+	cout << R"(
+         ______
+      .-"      "-.
+    .'  ^    ^    '.
+   /      ▽         \
+   \    \___/       /
+    '.___________.'
+
+)";
 }
 
 Goblin::Goblin(int hp, int attack)
-	: Monster("Goblin", "Goblin Leather", hp, attack, 2) { }
+	: Monster("Goblin", hp, attack) { }
 
-void Goblin::AttackMessage()
+Item* Goblin::DropItem()
 {
-	cout << "고블린 펀치!" << endl;
+	return new GoblinLeather();
+}
+
+void Goblin::PrintMonster()
+{
+    ClearScreen();
+    cout << R"(
+          ,      ,
+         /(.-""-.)\
+     |\  \/      \/  /|
+     | \ / =.  .= \ / |
+     \( \   o\/o   / )/
+      \_, '-/  \-' ,_/
+        /   \__/   \
+        \ \__/\__/ /
+      ___\ \|--|/ /___
+    /`    \      /    `\
+   /       '----'       \
+
+)";
+}
+
+Orc::Orc(int hp, int attack)
+    : Monster("Orc", hp, attack) { }
+
+Item* Orc::DropItem()
+{
+    return new OrcHammer();
+}
+void Orc::PrintMonster()
+{
+    ClearScreen();
+    cout << R"(
+        __,='`````'=/__
+        '//  (o) \(o) \ `'         _,-,
+        //|     ,_)   (`\      ,-'`_,-\
+       ,-~~~\  `'==='  /-,      \==```` \
+      /        `----'     `\     \       \
+   ,-`                  ,   \  ,.-\       \
+  /      ,               \,-`\`_,-`\_,..--'\
+ ,`    ,/,              ,>,   )     \--`````\
+ (      `\`---'`  `-,-'`_,<   \      \_,.--'`
+  `.      `--. _,-'`_,-`  |    \
+   [`-.___   <`_,-'`------(    /
+   (`` _,-\   \ --`````````|--`
+    >-`_,-`\,-` ,          |
+  <`_,'     ,  /\          /
+   `  \/\,-/ `/  \/`\_/V\_/
+
+)";
+}
+
+Dragon::Dragon(int hp, int attack)
+    : Monster("Dragon", hp, attack) { }
+
+Item* Dragon::DropItem()
+{
+    return new DragonHorn();
+}
+
+void Dragon::PrintMonster()
+{
+    ClearScreen();
+    cout << R"(
+                      / \  //\
+         |\___/|      /   \//  \\
+         /0  0  \__  /    //  | \ \
+        /     /  \/_/    //   |  \  \
+        @_^_@'/   \/_   //    |   \   \
+        //_^_/     \/_ //     |    \    \
+     ( //) |        \///      |     \     \
+   ( / /) _|_ /   )  //       |      \     _\
+ ( // /) '/,_ _ _/  ( ; -.    |    _ _\.-~        .-~~~^-.
+(( / / )) ,-{        _      `-.|.-~-.           .~         `.
+(( // / ))  '/\      /                 ~-. _ .-~      .-~^-.  \
+(( /// ))      `.   {            }                   /      \  \
+ (( / ))     .----~-.\        \-'                 .~         \  `. \^-.
+            ///.----..>        \             _ -~             `.  ^-`  ^-_
+              ///-._ _ _ _ _ _ _}^ - - - - ~                     ~-- ,.-~
+
+)";
 }
