@@ -21,4 +21,4 @@ int main(void)
 	delete Character::GetInstance("");
 	PressAnyKey();
 	return 0;
-}		
+}
