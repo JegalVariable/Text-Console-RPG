@@ -19,6 +19,6 @@ int main(void)
 	gameManager.GameRunning();
 
 	delete Character::GetInstance("");
-	system("pause");
+	PressAnyKey();
 	return 0;
 }		
